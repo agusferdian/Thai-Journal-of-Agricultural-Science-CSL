@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="utf-8"?>
+<style xmlns="http://purl.org/net/xbiblio/csl" class="in-text" version="1.0" demote-non-dropping-particle="never" default-locale="en-GB">
+  <info>
+    <title>Thai Journal of Agricultural Science</title>
+    <id>http://www.zotero.org/styles/thai-journal-of-agricultural-science</id>
+    <link href="http://www.zotero.org/styles/thai-journal-of-agricultural-science" rel="self"/>
+    <link href="https://li01.tci-thaijo.org/index.php/TJAS/AuthorGuidelines" rel="documentation"/>
+    <category citation-format="author-date"/>
+    <category field="biology"/>
+    <issn>0049-3589</issn>
+    <summary>Author-date style following the TJAS author guidelines: first author inverted, remaining authors initials-first, year after the author list, abbreviated periodical titles, volume followed by a colon and the page range.</summary>
+    <updated>2026-10-09T00:00:00+00:00</updated>
+    <rights license="http://creativecommons.org/licenses/by-sa/3.0/">This work is licensed under a Creative Commons Attribution-ShareAlike 3.0 License</rights>
+  </info>
+
+  <macro name="author">
+    <names variable="author">
+      <name and="text" delimiter=", " delimiter-precedes-last="never"
+            initialize-with="." name-as-sort-order="first" sort-separator=", "/>
+      <label form="short" prefix=", " suffix="."/>
+      <substitute>
+        <names variable="editor"/>
+        <text variable="title"/>
+      </substitute>
+    </names>
+  </macro>
+
+  <macro name="author-short">
+    <names variable="author">
+      <name form="short" and="text" delimiter=", " delimiter-precedes-last="never"/>
+      <substitute>
+        <names variable="editor"/>
+        <text variable="title" form="short"/>
+      </substitute>
+    </names>
+  </macro>
+
+  <macro name="editor">
+    <names variable="editor">
+      <name and="text" delimiter=", " delimiter-precedes-last="never" initialize-with="."/>
+      <label form="short" prefix=" (" suffix=")" text-case="capitalize-first"/>
+    </names>
+  </macro>
+
+  <macro name="year">
+    <choose>
+      <if variable="issued">
+        <date variable="issued">
+          <date-part name="year"/>
+        </date>
+        <text variable="year-suffix"/>
+      </if>
+      <else>
+        <text term="no date" form="short"/>
+        <text variable="year-suffix"/>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="title">
+    <choose>
+      <if type="chapter paper-conference entry-encyclopedia" match="any">
+        <group delimiter=", ">
+          <text variable="title"/>
+          <group delimiter=" ">
+            <label variable="page" form="short"/>
+            <text variable="page"/>
+          </group>
+        </group>
+      </if>
+      <else>
+        <text variable="title"/>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="container">
+    <choose>
+      <if type="article-journal article-magazine article-newspaper" match="any">
+        <group delimiter=" ">
+          <text variable="container-title" form="short"/>
+          <group delimiter=": ">
+            <group>
+              <text variable="volume"/>
+              <text variable="issue" prefix="(" suffix=")"/>
+            </group>
+            <text variable="page"/>
+          </group>
+        </group>
+      </if>
+      <else-if type="chapter paper-conference entry-encyclopedia" match="any">
+        <group delimiter=". ">
+          <group delimiter=" ">
+            <text term="in" text-case="capitalize-first" suffix=":"/>
+            <text macro="editor"/>
+            <text variable="container-title"/>
+          </group>
+          <group delimiter=", ">
+            <text variable="publisher"/>
+            <text variable="publisher-place"/>
+          </group>
+        </group>
+      </else-if>
+      <else-if type="thesis">
+        <group delimiter=", ">
+          <text variable="genre"/>
+          <text variable="publisher"/>
+          <text variable="publisher-place"/>
+        </group>
+      </else-if>
+      <else>
+        <group delimiter=", ">
+          <text variable="publisher"/>
+          <text variable="publisher-place"/>
+        </group>
+      </else>
+    </choose>
+  </macro>
+
+  <macro name="access">
+    <choose>
+      <if type="webpage post-weblog dataset" match="any">
+        <text variable="URL"/>
+      </if>
+    </choose>
+  </macro>
+
+  <citation et-al-min="3" et-al-use-first="1" disambiguate-add-year-suffix="true"
+            disambiguate-add-names="false" disambiguate-add-givenname="false"
+            collapse="year" cite-group-delimiter=", ">
+    <sort>
+      <key macro="year"/>
+      <key macro="author"/>
+    </sort>
+    <layout prefix="(" suffix=")" delimiter="; ">
+      <group delimiter=", ">
+        <text macro="author-short"/>
+        <text macro="year"/>
+        <group delimiter=" ">
+          <label variable="locator" form="short"/>
+          <text variable="locator"/>
+        </group>
+      </group>
+    </layout>
+  </citation>
+
+  <bibliography hanging-indent="true" entry-spacing="0" line-spacing="1"
+                et-al-min="100" et-al-use-first="99" subsequent-author-substitute="">
+    <sort>
+      <key macro="author"/>
+      <key macro="year"/>
+      <key variable="title"/>
+    </sort>
+    <layout suffix=".">
+      <group delimiter=". ">
+        <text macro="author"/>
+        <text macro="year"/>
+        <text macro="title"/>
+        <text macro="container"/>
+        <text macro="access"/>
+      </group>
+    </layout>
+  </bibliography>
+</style>
